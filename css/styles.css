@@ -91,6 +91,18 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; }
   height: 18px;
   flex-shrink: 0;
   border: 1.5px solid var(--aubergine);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.checksq svg {
+  width: 11px;
+  height: 11px;
+  fill: none;
+  stroke: var(--aubergine);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .checksq--ivory { border-color: rgba(243, 238, 231, 0.75); width: 16px; height: 16px; }
 
