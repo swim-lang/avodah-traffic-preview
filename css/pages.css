@@ -28,6 +28,7 @@
 .masthead__deck {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   gap: 72px;
   padding-top: 32px;
 }
@@ -47,7 +48,6 @@
   line-height: 1.6;
   color: var(--ivory-85);
   max-width: 560px;
-  flex-grow: 1;
 }
 .masthead__deck .btn-stack { flex-shrink: 0; }
 
