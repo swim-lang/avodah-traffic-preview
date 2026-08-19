@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" data-viewer>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Mobile Preview | Avodah Traffic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Jost", sans-serif;
+      background: #e7e0d5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px 90px;
+    }
+    .phone {
+      width: 399px;
+      border: 12px solid #2d1b22;
+      border-radius: 44px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(45, 27, 34, 0.35);
+      background: #f3eee7;
+    }
+    .phone iframe {
+      width: 375px;
+      height: min(76vh, 812px);
+      border: 0;
+      display: block;
+    }
+    .viewer-note {
+      margin-top: 18px;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(45, 27, 34, 0.55);
+    }
+    .device-toggle {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 2px;
+      background: #2d1b22;
+      padding: 4px;
+      box-shadow: 0 6px 24px rgba(45, 27, 34, 0.35);
+    }
+    .device-toggle a,
+    .device-toggle span {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 9px 18px;
+      color: rgba(243, 238, 231, 0.6);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .device-toggle a:hover { color: #f3eee7; }
+    .device-toggle .is-active { background: #f3eee7; color: #2d1b22; }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <iframe id="frame" src="index.html" title="Mobile preview"></iframe>
+  </div>
+  <div class="viewer-note" id="note">Mobile preview — 375px</div>
+  <div class="device-toggle">
+    <a id="desktopLink" href="index.html">Desktop</a>
+    <span class="is-active">Mobile</span>
+  </div>
+  <script>
+    (function () {
+      var page = (location.hash || "#index.html").slice(1);
+      if (!/^[a-z-]+\.html$/.test(page)) page = "index.html";
+      document.getElementById("frame").src = page;
+      document.getElementById("desktopLink").href = page;
+      var label = page.replace(".html", "").replace(/-/g, " ");
+      if (page === "index.html") label = "home";
+      document.getElementById("note").textContent = "Mobile preview — " + label + " — 375px";
+      window.addEventListener("hashchange", function () { location.reload(); });
+    })();
+  </script>
+</body>
+</html>
