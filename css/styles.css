@@ -99,7 +99,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; }
   width: 11px;
   height: 11px;
   fill: none;
-  stroke: var(--aubergine);
+  stroke: var(--signal);
   stroke-width: 3;
   stroke-linecap: round;
   stroke-linejoin: round;
