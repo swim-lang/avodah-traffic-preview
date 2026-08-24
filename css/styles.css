@@ -461,6 +461,8 @@ body.menu-open .menu-overlay__links a { opacity: 1; transform: none; }
 @media (max-width: 900px) {
   :root { --pad-x: 20px; }
 
+  .device-toggle { display: none; }
+
   .site-header { padding: 18px 20px; }
   .lockup__wordmark { width: 98px; }
   .lockup__sub { font-size: 11.5px; width: 98px; }

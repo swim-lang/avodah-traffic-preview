@@ -58,7 +58,7 @@
   if (loader && ropeFill) {
     var progress = 0;
     var loaderStart = Date.now();
-    var MIN_LOADER_TIME = 3000; // let the rope tie itself — don't rush it
+    var MIN_LOADER_TIME = 250;
 
     var finishLoading = function () {
       ropeFill.style.width = "100%";
@@ -66,7 +66,7 @@
         loader.classList.add("is-done");
         document.body.classList.remove("is-loading");
         revealHero();
-      }, 600);
+      }, 180);
     };
 
     var trickle = setInterval(function () {
@@ -79,7 +79,7 @@
       setTimeout(function () {
         clearInterval(trickle);
         finishLoading();
-      }, remaining + 350);
+      }, remaining);
     });
 
     // Safety: never trap the user on the loader
@@ -88,14 +88,36 @@
         clearInterval(trickle);
         finishLoading();
       }
-    }, 7000);
+    }, 1500);
   } else {
     // Interior pages: reveal the hero as soon as the DOM is ready.
     if (document.readyState !== "loading") revealHero();
     else document.addEventListener("DOMContentLoaded", revealHero);
   }
 
+  /* ---------- preview-only forms ---------- */
+
+  document.querySelectorAll("form[data-preview-form]").forEach(function (form) {
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var notice = form.querySelector(".preview-form-notice");
+      if (notice) {
+        notice.textContent = "Preview only. No information was sent.";
+        notice.setAttribute("role", "status");
+        notice.focus();
+      }
+    });
+  });
+
   /* ---------- overlay menu (tablet / mobile) ---------- */
+
+  if (document.querySelector(".article-page") && !document.querySelector(".menu-btn")) {
+    var articleMenu = document.createElement("button");
+    articleMenu.className = "menu-btn";
+    articleMenu.setAttribute("aria-label", "Open menu");
+    articleMenu.textContent = "Menu";
+    document.querySelector(".site-header").appendChild(articleMenu);
+  }
 
   var menuBtn = document.querySelector(".menu-btn");
   var navLinks = document.querySelectorAll(".primary-nav a");
