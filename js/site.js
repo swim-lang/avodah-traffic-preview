@@ -95,6 +95,39 @@
     else document.addEventListener("DOMContentLoaded", revealHero);
   }
 
+  /* ---------- shared interior-page conversion panel ---------- */
+
+  var conversionExcluded = ["index.html", "contact.html", "privacy.html", "disclaimer.html", "viewer.html"];
+  var conversionMain = document.querySelector("main");
+  if (conversionMain && conversionExcluded.indexOf(pageName) === -1 && !document.querySelector("form[data-preview-form]")) {
+    var oldCloser = conversionMain.lastElementChild;
+    if (oldCloser && oldCloser.matches(".cta-split, .cta-orange, .cta-call, .cta-cypress, .cta-document, .cta-inset, .cta-slim")) {
+      oldCloser.remove();
+    }
+
+    var conversionPanel = document.createElement("section");
+    conversionPanel.className = "conversion-panel conversion-panel--traffic";
+    conversionPanel.setAttribute("aria-labelledby", "conversion-panel-title");
+    conversionPanel.innerHTML = [
+      '<div class="conversion-panel__intro">',
+      '<span class="eyebrow eyebrow--ivory-dim">A useful first contact</span>',
+      '<h2 id="conversion-panel-title">Start with the details already on your paperwork.</h2>',
+      '<p>Calling is the fastest first step. If calling is not convenient, share these basic facts so Avodah can identify the matter and the deadline.</p>',
+      '<button class="btn btn--ivory js-preview-call" type="button"><span class="btn__label">Call now</span><span class="btn__chip" aria-hidden="true">&#8594;</span></button>',
+      '</div>',
+      '<form class="conversion-panel__form" data-preview-form>',
+      '<p class="preview-form-notice" tabindex="-1">Preview only. This form does not transmit or store information.</p>',
+      '<label>Full name<input type="text" autocomplete="name" /></label>',
+      '<label>Phone number<input type="tel" autocomplete="tel" /></label>',
+      '<label>Charge or citation<input type="text" /></label>',
+      '<div class="conversion-panel__row"><label>Court or locality<input type="text" /></label><label>Court date<input type="text" inputmode="numeric" placeholder="MM / DD / YYYY" /></label></div>',
+      '<label class="conversion-panel__consent"><input type="checkbox" /><span>Submitting this form does not create an attorney-client relationship. Do not send confidential details until Avodah confirms it can speak with you.</span></label>',
+      '<button class="btn btn--aubergine" type="submit"><span class="btn__label">Send the first details</span><span class="btn__chip" aria-hidden="true">&#8594;</span></button>',
+      '</form>'
+    ].join("");
+    conversionMain.insertAdjacentElement("afterend", conversionPanel);
+  }
+
   /* ---------- preview-only forms ---------- */
 
   document.querySelectorAll("form[data-preview-form]").forEach(function (form) {
@@ -118,7 +151,7 @@
     headerCall.setAttribute("aria-disabled", "true");
     headerCall.setAttribute("title", "Preview only. CallRail number pending.");
     var headerLabel = headerCall.querySelector(".btn__label");
-    if (headerLabel) headerLabel.textContent = "Call Avodah Traffic";
+    if (headerLabel) headerLabel.textContent = "Call now";
   }
 
   var utilityLink = document.querySelector(".utility-line a");
@@ -133,8 +166,31 @@
   var mobileCall = document.createElement("button");
   mobileCall.className = "mobile-call-bar js-preview-call";
   mobileCall.type = "button";
-  mobileCall.innerHTML = "<span>Call Avodah Traffic</span><small>Preview number pending</small>";
+  mobileCall.innerHTML = "<span>Call now</span><small>Avodah Traffic · preview number pending</small>";
   document.body.appendChild(mobileCall);
+
+  if (document.querySelector(".article-page") && document.querySelector(".primary-nav") && !document.querySelector(".menu-btn")) {
+    var articleMenu = document.createElement("button");
+    articleMenu.className = "menu-btn";
+    articleMenu.setAttribute("aria-label", "Open menu");
+    articleMenu.textContent = "Menu";
+    document.querySelector(".site-header").appendChild(articleMenu);
+  }
+
+  var siteHeader = document.querySelector(".site-header");
+  var menuControl = document.querySelector(".menu-btn");
+  if (siteHeader && headerCall && !siteHeader.querySelector(".header-actions")) {
+    var headerActions = document.createElement("div");
+    headerActions.className = "header-actions";
+    siteHeader.insertBefore(headerActions, headerCall);
+    headerActions.appendChild(headerCall);
+    var headerContact = document.createElement("a");
+    headerContact.className = "header-contact";
+    headerContact.href = "contact.html";
+    headerContact.textContent = "Contact";
+    headerActions.appendChild(headerContact);
+    if (menuControl) headerActions.appendChild(menuControl);
+  }
 
   document.querySelectorAll(".js-preview-call").forEach(function (control) {
     control.addEventListener("click", function (event) {
@@ -152,14 +208,6 @@
   });
 
   /* ---------- overlay menu (tablet / mobile) ---------- */
-
-  if (document.querySelector(".article-page") && !document.querySelector(".menu-btn")) {
-    var articleMenu = document.createElement("button");
-    articleMenu.className = "menu-btn";
-    articleMenu.setAttribute("aria-label", "Open menu");
-    articleMenu.textContent = "Menu";
-    document.querySelector(".site-header").appendChild(articleMenu);
-  }
 
   var menuBtn = document.querySelector(".menu-btn");
   var navLinks = document.querySelectorAll(".primary-nav a");
