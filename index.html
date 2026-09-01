@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- Jost stands in for Futura PT Book until the Adobe Fonts kit is added -->
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20260824" />
-  <link rel="stylesheet" href="css/pages.css?v=20260824" />
+  <link rel="stylesheet" href="css/styles.css?v=20260901" />
+  <link rel="stylesheet" href="css/pages.css?v=20260901" />
 </head>
 <body class="is-loading">
 
@@ -31,7 +31,7 @@
   </div>
 
   <!-- ============ UTILITY + HEADER ============ -->
-  <div class="utility-line"><span>Court date approaching?</span> <a href="contact.html">Start with the charge and court date</a></div>
+  <div class="utility-line"><span>Court date approaching?</span> <button class="utility-call js-preview-call" type="button">Call Avodah Traffic</button></div>
   <header class="site-header">
     <a class="lockup" href="index.html" aria-label="Avodah Traffic home">
       <img class="lockup__wordmark" src="assets/wordmark-eggplant.svg" alt="Avodah" />
@@ -45,19 +45,21 @@
       <a href="mark-earley.html">Mark Earley</a>
       <a href="insights.html">Insights</a>
     </nav>
-    <a class="btn btn--aubergine site-header__cta" href="contact.html">
-      <span class="btn__label">Request a Case Review</span>
+    <button class="btn btn--aubergine site-header__cta js-preview-call" type="button">
+      <span class="btn__label">Call Avodah Traffic</span>
       <span class="btn__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
-    </a>
+    </button>
     <button class="menu-btn" aria-label="Open menu">Menu</button>
   </header>
 
   <main>
     <!-- ============ MASTHEAD HERO ============ -->
-    <section class="masthead">
+    <section class="masthead masthead--photo">
+      <img class="masthead__photo" src="assets/traffic-hero-patrol-v1.jpg" alt="A generic patrol vehicle on a wet road at dusk" />
+      <div class="masthead__scrim" aria-hidden="true"></div>
       <div class="masthead__top reveal-load" style="--d: .1s">
         <span class="eyebrow eyebrow--ivory">Virginia Traffic and Driving Defense</span>
-        <span class="eyebrow eyebrow--ivory-dim">Richmond &middot; Virginia Courts</span>
+        <span class="eyebrow eyebrow--ivory-dim">Serving Clients Across Virginia</span>
       </div>
       <h1 class="masthead__title reveal-load" style="--d: .25s">Know what you are facing.<br />Know what comes next.</h1>
       <div class="masthead__rule reveal-load" style="--d: .45s"></div>
@@ -68,14 +70,37 @@
         </div>
         <p class="masthead__body reveal-load" style="--d: .65s">A traffic charge can affect more than a court date. Avodah Traffic helps Virginia drivers understand the charge, the process and the decisions ahead, with Mark Earley and his team providing direct, practical guidance.</p>
         <div class="btn-stack reveal-load" style="--d: .75s">
-          <a class="btn btn--ivory" href="contact.html">
-            <span class="btn__label">Request a Case Review</span>
+          <button class="btn btn--ivory js-preview-call" type="button">
+            <span class="btn__label">Call Avodah Traffic</span>
+            <span class="btn__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
+          </button>
+          <a class="btn btn--ivory" href="#quick-review">
+            <span class="btn__label">Start a Case Review</span>
             <span class="btn__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
           </a>
-          <a class="btn btn--ivory" href="#charges">
-            <span class="btn__label">Find Your Charge</span>
-            <span class="btn__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
-          </a>
+        </div>
+      </div>
+      <p class="preview-call-notice reveal-load" style="--d: .9s" tabindex="-1">Preview only. The CallRail number will be connected after Avodah approves routing.</p>
+    </section>
+
+    <!-- ============ MARK EARLEY — IMMEDIATE PROOF ============ -->
+    <section class="attorney-band attorney-band--early">
+      <div class="attorney-band__photo">
+        <img src="assets/mark-earley.jpg" alt="Mark Earley, partner at Avodah Legal" />
+        <span class="photo-caption photo-caption--inset">Mark Earley &middot; Partner</span>
+      </div>
+      <div class="attorney-band__profile">
+        <span class="eyebrow eyebrow--ivory-dim reveal">Your Virginia Traffic Counsel</span>
+        <h2 class="reveal" style="--d: .12s">Talk with a lawyer who can help you understand the charge and what comes next.</h2>
+        <p class="reveal" style="--d: .24s">Mark Earley represents clients in reckless driving, DUI/DWI, serious traffic offenses and selected criminal matters. His background includes service in the Virginia House of Delegates, private practice and a federal judicial clerkship.</p>
+        <div class="cred-row reveal" style="--d: .32s">
+          <span>Attorney-Led Review</span><i></i>
+          <span>Virginia Courts</span><i></i>
+          <span>Direct Guidance</span>
+        </div>
+        <div class="attorney-band__actions reveal" style="--d: .4s">
+          <button class="btn btn--ivory js-preview-call" type="button"><span class="btn__label">Call Avodah Traffic</span><span class="btn__chip"><svg class="icon-phone" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span></button>
+          <a class="btn btn--ivory" href="mark-earley.html"><span class="btn__label">Meet Mark Earley</span><span class="btn__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></a>
         </div>
       </div>
     </section>
@@ -97,6 +122,30 @@
         <div class="fact reveal" style="--d: .29s"><span class="checksq"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#CB4E31" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5L19.5 7"/></svg></span>Court date</div>
         <div class="fact reveal" style="--d: .36s"><span class="checksq"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#CB4E31" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5L19.5 7"/></svg></span>License state</div>
       </div>
+    </section>
+
+    <!-- ============ COMPACT FIRST STEP ============ -->
+    <section class="quick-review" id="quick-review">
+      <div class="quick-review__intro">
+        <span class="eyebrow eyebrow--cypress reveal">Second-Best Next Step</span>
+        <h2 class="reveal" style="--d: .12s">If calling is not convenient, send the four facts from your paperwork.</h2>
+        <p class="reveal" style="--d: .24s">This short first step helps Avodah identify the matter and the deadline. Additional details can wait until the firm confirms it can speak with you.</p>
+      </div>
+      <form class="quick-review__form reveal" style="--d: .18s" data-preview-form>
+        <p class="preview-form-notice" tabindex="-1">Preview only. This form does not transmit or store information.</p>
+        <div class="quick-review__row">
+          <label>Full name<input type="text" autocomplete="name" /></label>
+          <label>Phone number<input type="tel" autocomplete="tel" /></label>
+        </div>
+        <label>Charge as written<input type="text" /></label>
+        <div class="quick-review__row">
+          <label>Court or locality<input type="text" /></label>
+          <label>Court date<input type="text" inputmode="numeric" placeholder="MM / DD / YYYY" /></label>
+        </div>
+        <label>Driver's-license state<input type="text" /></label>
+        <label class="quick-review__consent"><input type="checkbox" /><span>Submitting this form does not create an attorney-client relationship. Do not send confidential information until Avodah confirms it can speak with you.</span></label>
+        <button class="btn btn--aubergine" type="submit"><span class="btn__label">Submit First Step</span><span class="btn__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></button>
+      </form>
     </section>
 
     <!-- ============ CHOOSE THE CHARGE ============ -->
@@ -185,6 +234,26 @@
       </div>
     </section>
 
+    <!-- ============ STATEWIDE COVERAGE ============ -->
+    <section class="coverage">
+      <div class="coverage__visual reveal" aria-hidden="true">
+        <div class="coverage__state">Virginia</div>
+        <span class="coverage__line coverage__line--one"></span>
+        <span class="coverage__line coverage__line--two"></span>
+        <span class="coverage__point coverage__point--richmond"></span>
+        <span class="coverage__point coverage__point--norfolk"></span>
+      </div>
+      <div class="coverage__copy">
+        <span class="eyebrow eyebrow--cypress reveal">Virginia-Wide Matters</span>
+        <h2 class="reveal" style="--d: .12s">The court may be local. The practice serves clients across Virginia.</h2>
+        <p class="reveal" style="--d: .24s">Avodah maintains offices in Richmond and Norfolk and evaluates traffic matters arising in courts across the Commonwealth. A court or locality is part of the case information, not a claim that Avodah has an office in every county.</p>
+        <div class="coverage__offices reveal" style="--d: .32s">
+          <div><span>Richmond office</span><address>406 W Franklin Street<br />Richmond, VA 23220</address></div>
+          <div><span>Norfolk office</span><address>500 E Main Street, Suite 1522<br />Norfolk, VA 23510</address></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ PROCESS ============ -->
     <section class="process">
       <div class="process__head">
@@ -218,28 +287,6 @@
           <h3>Prepare and appear</h3>
           <p>The firm confirms responsibilities, deadlines and what to expect as the case moves toward court.</p>
         </div>
-      </div>
-    </section>
-
-    <!-- ============ MARK EARLEY BAND ============ -->
-    <section class="attorney-band">
-      <div class="attorney-band__photo">
-        <img src="assets/mark-earley.jpg" alt="Mark Earley, partner at Avodah Legal" />
-        <span class="photo-caption photo-caption--inset">Mark Earley &middot; Partner</span>
-      </div>
-      <div class="attorney-band__profile">
-        <span class="eyebrow eyebrow--ivory-dim reveal">Attorney-Led Defense</span>
-        <h2 class="reveal" style="--d: .12s">Direct guidance from a Virginia lawyer who knows public service and the courtroom.</h2>
-        <p class="reveal" style="--d: .24s">Mark Earley represents clients in reckless driving, DUI/DWI, serious traffic offenses and selected criminal matters. His background includes service in the Virginia House of Delegates, private practice and a federal judicial clerkship. He brings a steady, direct approach to moments that can feel unfamiliar and urgent.</p>
-        <div class="cred-row reveal" style="--d: .32s">
-          <span>Virginia House of Delegates</span><i></i>
-          <span>Private Practice</span><i></i>
-          <span>Federal Judicial Clerkship</span>
-        </div>
-        <a class="btn btn--ivory reveal" style="--d: .4s" href="mark-earley.html">
-          <span class="btn__label">Meet Mark Earley</span>
-          <span class="btn__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
-        </a>
       </div>
     </section>
 
@@ -293,7 +340,7 @@
           <span class="btn__label">Share the Court Date</span>
           <span class="btn__chip"><svg class="icon-phone" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
         </a>
-        <small class="reveal" style="--d: .32s">Avodah Legal &middot; Richmond, Virginia</small>
+        <small class="reveal" style="--d: .32s">Preview only &middot; CallRail routing pending</small>
       </div>
     </section>
   </main>
@@ -318,8 +365,9 @@
         <a href="https://www.avodahlegal.com" target="_blank" rel="noopener">Avodah Legal main site&nbsp;&#8599;</a>
       </div>
       <div class="site-footer__col">
-        <span class="site-footer__label">Richmond</span>
+        <span class="site-footer__label">Offices</span>
         <address>406 W Franklin Street<br />Richmond, VA 23220</address>
+        <address>500 E Main Street, Suite 1522<br />Norfolk, VA 23510</address>
         <a href="contact.html">Request a Case Review</a>
       </div>
     </div>
@@ -340,6 +388,6 @@
     </div>
   </footer>
 
-  <script src="js/site.js?v=20260824"></script>
+  <script src="js/site.js?v=20260901"></script>
 </body>
 </html>

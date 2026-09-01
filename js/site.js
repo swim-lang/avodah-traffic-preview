@@ -109,6 +109,48 @@
     });
   });
 
+  /* ---------- preview-only phone actions ---------- */
+
+  var headerCall = document.querySelector(".site-header__cta");
+  if (headerCall) {
+    if (headerCall.tagName === "A") headerCall.removeAttribute("href");
+    headerCall.classList.add("js-preview-call");
+    headerCall.setAttribute("aria-disabled", "true");
+    headerCall.setAttribute("title", "Preview only. CallRail number pending.");
+    var headerLabel = headerCall.querySelector(".btn__label");
+    if (headerLabel) headerLabel.textContent = "Call Avodah Traffic";
+  }
+
+  var utilityLink = document.querySelector(".utility-line a");
+  if (utilityLink) {
+    utilityLink.removeAttribute("href");
+    utilityLink.classList.add("js-preview-call");
+    utilityLink.setAttribute("aria-disabled", "true");
+    utilityLink.setAttribute("title", "Preview only. CallRail number pending.");
+    utilityLink.textContent = "Call Avodah Traffic";
+  }
+
+  var mobileCall = document.createElement("button");
+  mobileCall.className = "mobile-call-bar js-preview-call";
+  mobileCall.type = "button";
+  mobileCall.innerHTML = "<span>Call Avodah Traffic</span><small>Preview number pending</small>";
+  document.body.appendChild(mobileCall);
+
+  document.querySelectorAll(".js-preview-call").forEach(function (control) {
+    control.addEventListener("click", function (event) {
+      event.preventDefault();
+      var notice = document.querySelector(".preview-call-notice");
+      if (notice) {
+        notice.textContent = "Preview only. Avodah's approved CallRail number and routing are still pending.";
+        notice.classList.add("is-active");
+        notice.setAttribute("role", "status");
+        notice.focus();
+      } else {
+        mobileCall.querySelector("small").textContent = "CallRail routing pending";
+      }
+    });
+  });
+
   /* ---------- overlay menu (tablet / mobile) ---------- */
 
   if (document.querySelector(".article-page") && !document.querySelector(".menu-btn")) {

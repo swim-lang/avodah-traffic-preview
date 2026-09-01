@@ -10,7 +10,13 @@
   padding: 64px var(--pad-x) 72px;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
 }
+.masthead__photo, .masthead__scrim { position: absolute; inset: 0; width: 100%; height: 100%; }
+.masthead__photo { object-fit: cover; object-position: center right; }
+.masthead__scrim { background: linear-gradient(90deg, rgba(45, 27, 34, 0.97) 0%, rgba(45, 27, 34, 0.88) 44%, rgba(45, 27, 34, 0.34) 100%); }
+.masthead > :not(.masthead__photo, .masthead__scrim) { position: relative; z-index: 1; }
 .masthead__top {
   display: flex;
   justify-content: space-between;
@@ -50,6 +56,7 @@
   max-width: 560px;
 }
 .masthead__deck .btn-stack { flex-shrink: 0; }
+.attorney-band__actions { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; }
 
 @media (max-width: 1150px) and (min-width: 901px) {
   .masthead__meta { width: 180px; }
@@ -92,6 +99,49 @@
   font-size: 22px;
 }
 .fact + .fact { border-left: 1px solid var(--hairline-dark); padding-left: 32px; }
+
+/* ---------- compact first-step review ---------- */
+
+.quick-review {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(520px, 1.1fr);
+  gap: 88px;
+  padding: 110px var(--pad-x);
+  background: #ebe3d9;
+}
+.quick-review__intro .eyebrow { margin-bottom: 22px; }
+.quick-review__intro h2 { font-size: 46px; line-height: 1.14; margin-bottom: 24px; }
+.quick-review__intro p { max-width: 560px; color: var(--ink-60); font-size: 17px; line-height: 1.58; }
+.quick-review__form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 36px;
+  border: 1px solid var(--hairline-mid);
+  background: var(--travertine);
+}
+.quick-review__form > label, .quick-review__row label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.quick-review__form input[type="text"], .quick-review__form input[type="tel"] {
+  min-width: 0;
+  border: 0;
+  border-bottom: 1px solid var(--hairline-mid);
+  background: transparent;
+  padding: 10px 0 11px;
+  color: var(--aubergine);
+  font: 16px var(--font-sans);
+}
+.quick-review__row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.quick-review__consent { flex-direction: row !important; align-items: flex-start; text-transform: none !important; letter-spacing: 0 !important; }
+.quick-review__consent input { margin-top: 3px; accent-color: var(--aubergine); }
+.quick-review__consent span, .preview-form-notice { color: var(--ink-60); font-size: 13px; line-height: 1.5; }
+.quick-review__form .btn { align-self: flex-start; margin-top: 4px; }
 
 /* ---------- choose the charge ---------- */
 
@@ -168,6 +218,39 @@
 .chip:hover { background: var(--aubergine); color: var(--travertine); }
 
 /* ---------- process (home) — signal band, stair-step cascade ---------- */
+
+/* ---------- statewide coverage ---------- */
+
+.coverage { display: grid; grid-template-columns: 1fr 1fr; background: var(--travertine); }
+.coverage__visual {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--aubergine);
+  color: var(--travertine);
+}
+.coverage__state {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%) rotate(-4deg);
+  font-family: var(--font-display);
+  font-size: clamp(76px, 10vw, 150px);
+  color: var(--travertine);
+  opacity: .92;
+}
+.coverage__line { position: absolute; height: 1px; background: rgba(243,238,231,.28); transform-origin: left; }
+.coverage__line--one { width: 75%; left: 10%; top: 36%; transform: rotate(9deg); }
+.coverage__line--two { width: 70%; left: 14%; top: 65%; transform: rotate(-7deg); }
+.coverage__point { position: absolute; width: 13px; height: 13px; border: 3px solid var(--signal); background: var(--travertine); transform: rotate(45deg); }
+.coverage__point--richmond { left: 56%; top: 48%; }
+.coverage__point--norfolk { left: 76%; top: 63%; }
+.coverage__copy { padding: 100px 7vw; display: flex; flex-direction: column; justify-content: center; }
+.coverage__copy .eyebrow { margin-bottom: 22px; }
+.coverage__copy h2 { font-size: 46px; line-height: 1.14; margin-bottom: 26px; }
+.coverage__copy > p { color: var(--ink-60); font-size: 17px; line-height: 1.58; margin-bottom: 38px; }
+.coverage__offices { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding-top: 26px; border-top: 1px solid var(--hairline-dark); }
+.coverage__offices span { display: block; margin-bottom: 10px; color: var(--signal); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+.coverage__offices address { font-style: normal; font-size: 14px; line-height: 1.55; }
 
 .process { background: var(--signal); padding: 100px var(--pad-x) 110px; }
 .process__head {
@@ -951,6 +1034,8 @@
 
 @media (max-width: 900px) {
   .masthead { padding: 44px 20px 52px; }
+  .masthead__photo { object-position: 64% center; }
+  .masthead__scrim { background: linear-gradient(90deg, rgba(45, 27, 34, 0.94), rgba(45, 27, 34, 0.72)); }
   .masthead__top { margin-bottom: 44px; }
   .masthead__top span:last-child { display: none; }
   .masthead__title { margin-bottom: 40px; }
@@ -963,6 +1048,11 @@
   .quick-strip__facts { flex-direction: column; align-items: stretch; }
   .fact { padding: 14px 0; }
   .fact + .fact { border-left: 0; border-top: 1px solid var(--hairline-dark); padding-left: 0; }
+
+  .quick-review { grid-template-columns: 1fr; gap: 40px; padding: 72px 20px; }
+  .quick-review__intro h2 { font-size: 34px; }
+  .quick-review__form { padding: 26px 20px; }
+  .quick-review__row { grid-template-columns: 1fr; gap: 18px; }
 
   .charges { padding: 72px 20px; }
   .charges__head h2 { font-size: 34px; }
@@ -979,6 +1069,12 @@
   .consequence__intro h2 { font-size: 34px; }
   .consequence__chips { padding-top: 0; }
 
+  .coverage { grid-template-columns: 1fr; }
+  .coverage__visual { min-height: 300px; }
+  .coverage__copy { padding: 64px 20px 72px; }
+  .coverage__copy h2 { font-size: 34px; }
+  .coverage__offices { grid-template-columns: 1fr; }
+
   .process { padding: 64px 20px 72px; }
   .process__head { flex-direction: column; align-items: flex-start; }
   .process__head h2 { font-size: 34px; }
@@ -993,6 +1089,7 @@
   .attorney-band__photo { width: 100%; height: 360px; }
   .attorney-band__profile { padding: 56px 20px 64px; }
   .attorney-band__profile h2 { font-size: 32px; }
+  .attorney-band__actions { flex-direction: column; align-items: flex-start; gap: 18px; }
 
   .insights { padding: 72px 20px; }
   .insights__head { flex-direction: column; align-items: flex-start; }
