@@ -610,3 +610,10 @@ body.menu-open .menu-overlay__links a { opacity: 1; transform: none; }
   .loader__crest { width: 58px; margin-bottom: 22px; }
   .loader__rope { width: 220px; height: 10px; }
 }
+
+/* Insights are draft editorial inventory and remain unavailable until Avodah
+   completes attorney review and gives written publication approval. */
+a[href="insights.html"],
+section.insights {
+  display: none !important;
+}
