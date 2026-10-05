@@ -10,6 +10,8 @@
 (function () {
   "use strict";
 
+  var TRAFFIC_PHONE_DISPLAY = "804-405-2129";
+
   /* Dev flag: ?flat=1 disables scroll choreography for full-page captures */
   if (new URLSearchParams(location.search).has("flat")) {
     document.documentElement.classList.add("flat");
@@ -113,7 +115,7 @@
       '<span class="eyebrow eyebrow--ivory-dim">A useful first contact</span>',
       '<h2 id="conversion-panel-title">Start with the details already on your paperwork.</h2>',
       '<p>Calling is the fastest first step. If calling is not convenient, share these basic facts so Avodah can identify the matter and the deadline.</p>',
-      '<button class="btn btn--ivory js-preview-call" type="button"><span class="btn__label">Call now</span><span class="btn__chip" aria-hidden="true">&#8594;</span></button>',
+      '<button class="btn btn--ivory js-preview-call" type="button"><span class="btn__label">' + TRAFFIC_PHONE_DISPLAY + '</span><span class="btn__chip" aria-hidden="true">&#8594;</span></button>',
       '</div>',
       '<form class="conversion-panel__form" data-preview-form>',
       '<p class="preview-form-notice" tabindex="-1">Preview only. This form does not transmit or store information.</p>',
@@ -149,9 +151,9 @@
     if (headerCall.tagName === "A") headerCall.removeAttribute("href");
     headerCall.classList.add("js-preview-call");
     headerCall.setAttribute("aria-disabled", "true");
-    headerCall.setAttribute("title", "Preview only. CallRail number pending.");
+    headerCall.setAttribute("title", "Preview only. CallRail routing is not configured yet.");
     var headerLabel = headerCall.querySelector(".btn__label");
-    if (headerLabel) headerLabel.textContent = "Call now";
+    if (headerLabel) headerLabel.textContent = TRAFFIC_PHONE_DISPLAY;
   }
 
   var utilityLink = document.querySelector(".utility-line a");
@@ -159,14 +161,14 @@
     utilityLink.removeAttribute("href");
     utilityLink.classList.add("js-preview-call");
     utilityLink.setAttribute("aria-disabled", "true");
-    utilityLink.setAttribute("title", "Preview only. CallRail number pending.");
-    utilityLink.textContent = "Call Avodah Traffic";
+    utilityLink.setAttribute("title", "Preview only. CallRail routing is not configured yet.");
+    utilityLink.textContent = TRAFFIC_PHONE_DISPLAY;
   }
 
   var mobileCall = document.createElement("button");
   mobileCall.className = "mobile-call-bar js-preview-call";
   mobileCall.type = "button";
-  mobileCall.innerHTML = "<span>Call now</span><small>Avodah Traffic · preview number pending</small>";
+  mobileCall.innerHTML = "<span>" + TRAFFIC_PHONE_DISPLAY + "</span><small>Avodah Traffic · preview routing pending</small>";
   document.body.appendChild(mobileCall);
 
   if (document.querySelector(".article-page") && document.querySelector(".primary-nav") && !document.querySelector(".menu-btn")) {
@@ -197,12 +199,12 @@
       event.preventDefault();
       var notice = document.querySelector(".preview-call-notice");
       if (notice) {
-        notice.textContent = "Preview only. Avodah's approved CallRail number and routing are still pending.";
+        notice.textContent = "Preview only. The number is shown for review, but CallRail routing is not configured yet.";
         notice.classList.add("is-active");
         notice.setAttribute("role", "status");
         notice.focus();
       } else {
-        mobileCall.querySelector("small").textContent = "CallRail routing pending";
+        mobileCall.querySelector("small").textContent = "Preview routing pending";
       }
     });
   });
