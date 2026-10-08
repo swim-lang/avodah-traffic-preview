@@ -13,6 +13,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Jost";
+  src: url("../assets/fonts/Jost-Latin.woff2") format("woff2");
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --travertine: #f3eee7;
   --aubergine: #2d1b22;
@@ -577,7 +585,7 @@ body.menu-open .menu-overlay__links a { opacity: 1; transform: none; }
     min-height: 62px;
     padding: 12px 20px;
     border: 0;
-    background: var(--signal);
+    background: var(--aubergine);
     color: var(--travertine);
     font: 500 12px var(--font-sans);
     letter-spacing: 0.14em;
@@ -589,7 +597,7 @@ body.menu-open .menu-overlay__links a { opacity: 1; transform: none; }
     font-size: 10px;
     letter-spacing: 0.06em;
     text-transform: none;
-    color: rgba(243, 238, 231, 0.82);
+    color: var(--travertine);
   }
 
   .conversion-panel { grid-template-columns: 1fr; gap: 40px; padding: 64px 20px 72px; }
