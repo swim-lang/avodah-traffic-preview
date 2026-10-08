@@ -97,6 +97,7 @@ function isRateLimited(key, now = Date.now()) {
 
 function emailMarkup(payload) {
   const rows = [
+    ["Website", "Avodah Traffic — avodahtraffic.com"],
     ["Name", payload.name],
     ["Phone", payload.phone],
     ["Email", payload.email],
@@ -114,7 +115,7 @@ function emailMarkup(payload) {
     .map(([label, value]) => `<tr><th align="left" style="padding:8px 12px 8px 0;vertical-align:top">${escapeHtml(label)}</th><td style="padding:8px 0;vertical-align:top">${escapeHtml(value)}</td></tr>`)
     .join("");
 
-  return `<div style="font-family:Arial,sans-serif;color:#241a24;line-height:1.5"><h1 style="font-size:22px;margin:0 0 16px">New Avodah Traffic inquiry</h1><p style="margin:0 0 16px">A visitor submitted the short first-step case review form.</p><table role="presentation" style="border-collapse:collapse">${rows}</table><p style="margin:20px 0 0;font-size:13px;color:#655b65">The visitor was told not to send confidential information. Submission does not create an attorney-client relationship.</p></div>`;
+  return `<div style="font-family:Arial,sans-serif;color:#241a24;line-height:1.5"><h1 style="font-size:22px;margin:0 0 16px">New Avodah Traffic inquiry</h1><p style="margin:0 0 16px">This inquiry was submitted through the Avodah Traffic website at avodahtraffic.com.</p><table role="presentation" style="border-collapse:collapse">${rows}</table><p style="margin:20px 0 0;font-size:13px;color:#655b65">The visitor was told not to send confidential information. Submission does not create an attorney-client relationship.</p></div>`;
 }
 
 async function parseBody(request) {
@@ -164,7 +165,7 @@ async function handler(request, response) {
       body: JSON.stringify({
         from: process.env.INTAKE_FROM,
         to: recipients,
-        subject: `Traffic inquiry: ${payload.charge} from ${payload.name}`,
+        subject: `[Avodah Traffic website] ${payload.charge} inquiry from ${payload.name}`,
         html: emailMarkup(payload),
         ...(payload.email ? { reply_to: payload.email } : {}),
       }),

@@ -45,7 +45,7 @@ test("sends a valid inquiry only to configured recipients", async () => {
   const previousFetch = global.fetch;
   process.env.RESEND_API_KEY = "test-key";
   process.env.INTAKE_FROM = "Avodah Traffic <intake@example.com>";
-  process.env.INTAKE_RECIPIENTS = "mark@example.com";
+  process.env.INTAKE_RECIPIENTS = "website@avodahlegal.com";
   process.env.INTAKE_ALLOWED_ORIGINS = "https://traffic.example.com";
   let sendRequest;
   global.fetch = async (url, options) => { sendRequest = { url, options }; return { ok: true }; };
@@ -56,7 +56,9 @@ test("sends a valid inquiry only to configured recipients", async () => {
   assert.deepEqual(JSON.parse(response.body), { ok: true });
   assert.equal(sendRequest.url, "https://api.resend.com/emails");
   const email = JSON.parse(sendRequest.options.body);
-  assert.deepEqual(email.to, ["mark@example.com"]);
+  assert.deepEqual(email.to, ["website@avodahlegal.com"]);
+  assert.match(email.subject, /^\[Avodah Traffic website\]/);
+  assert.match(email.html, /Avodah Traffic — avodahtraffic\.com/);
   assert.equal(email.reply_to, "jane@example.com");
   global.fetch = previousFetch;
   for (const [key, value] of Object.entries({ RESEND_API_KEY: previousEnv.key, INTAKE_FROM: previousEnv.from, INTAKE_RECIPIENTS: previousEnv.recipients, INTAKE_ALLOWED_ORIGINS: previousEnv.origins })) {

@@ -27,6 +27,13 @@
     analyticsScript.async = true;
     analyticsScript.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_MEASUREMENT_ID;
     document.head.appendChild(analyticsScript);
+
+    // CallRail dynamically replaces the published business number with the
+    // Avodah Traffic tracking number on the production domain only.
+    var callRailScript = document.createElement("script");
+    callRailScript.async = true;
+    callRailScript.src = "https://cdn.callrail.com/companies/605726199/62583cd9278a6667f744/12/swap.js";
+    document.body.appendChild(callRailScript);
   }
 
   /* Dev flag: ?flat=1 disables scroll choreography for full-page captures */
