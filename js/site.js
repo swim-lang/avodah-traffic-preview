@@ -394,17 +394,6 @@
     });
   }
 
-  /* ---------- desktop / mobile preview toggle (client review aid) ---------- */
-
-  if (!document.documentElement.hasAttribute("data-viewer") && window.self === window.top) {
-    var toggle = document.createElement("div");
-    toggle.className = "device-toggle";
-    toggle.innerHTML =
-      '<span class="is-active">Desktop</span>' +
-      '<a href="viewer.html#' + pageName + '">Mobile</a>';
-    document.body.appendChild(toggle);
-  }
-
   /* ---------- insights filter chips (visual only until CMS wiring) ---------- */
 
   var filters = document.querySelectorAll(".filters .filter");

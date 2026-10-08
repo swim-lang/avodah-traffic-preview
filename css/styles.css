@@ -522,28 +522,6 @@ body.menu-open .menu-overlay__links a { opacity: 1; transform: none; }
   color: var(--ivory-70);
 }
 
-/* ---------- device toggle (client review aid) ---------- */
-
-.device-toggle {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 80;
-  display: flex;
-  gap: 2px;
-  background: var(--aubergine);
-  padding: 4px;
-  box-shadow: 0 6px 24px rgba(45, 27, 34, 0.35);
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-.device-toggle span,
-.device-toggle a { padding: 9px 18px; color: rgba(243, 238, 231, 0.6); transition: color 0.25s; }
-.device-toggle a:hover { color: var(--travertine); }
-.device-toggle .is-active { background: var(--travertine); color: var(--aubergine); }
-
 /* ==========================================================================
    Tablet — collapse the nav to the overlay menu BEFORE it can wrap or
    crowd the lockup. The full nav + CTA needs ~1300px of clean room.
@@ -562,8 +540,6 @@ body.menu-open .menu-overlay__links a { opacity: 1; transform: none; }
   :root { --pad-x: 20px; }
 
   body { padding-bottom: 62px; }
-
-  .device-toggle { display: none; }
 
   .site-header { padding: 18px 20px; }
   .header-actions { gap: 8px; }

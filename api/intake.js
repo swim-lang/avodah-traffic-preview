@@ -170,11 +170,22 @@ async function handler(request, response) {
         ...(payload.email ? { reply_to: payload.email } : {}),
       }),
     });
-  } catch (_error) {
+  } catch (error) {
+    console.error("Resend request failed", { errorName: error && error.name ? error.name : "UnknownError" });
     return json(response, 502, { ok: false, message: "Your inquiry could not be sent. Please call Avodah Traffic directly." });
   }
 
-  if (!resendResponse.ok) return json(response, 502, { ok: false, message: "Your inquiry could not be sent. Please call Avodah Traffic directly." });
+  if (!resendResponse.ok) {
+    let errorName = "unknown";
+    try {
+      const resendError = await resendResponse.json();
+      errorName = String(resendError.name || resendError.code || "unknown").slice(0, 80);
+    } catch (_error) {
+      errorName = "unreadable_response";
+    }
+    console.error("Resend rejected inquiry", { status: resendResponse.status, errorName });
+    return json(response, 502, { ok: false, message: "Your inquiry could not be sent. Please call Avodah Traffic directly." });
+  }
   return json(response, 200, { ok: true });
 }
 
