@@ -11,6 +11,23 @@
   "use strict";
 
   var TRAFFIC_PHONE_DISPLAY = "804-405-2129";
+  var TRAFFIC_PHONE_HREF = "+18044052129";
+  var GA_MEASUREMENT_ID = "G-JGNZ3SBG6J";
+
+  function trackEvent(name, parameters) {
+    if (typeof window.gtag === "function") window.gtag("event", name, parameters || {});
+  }
+
+  if (location.hostname === "avodahtraffic.com" || location.hostname === "www.avodahtraffic.com") {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", GA_MEASUREMENT_ID, { anonymize_ip: true });
+    var analyticsScript = document.createElement("script");
+    analyticsScript.async = true;
+    analyticsScript.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_MEASUREMENT_ID;
+    document.head.appendChild(analyticsScript);
+  }
 
   /* Dev flag: ?flat=1 disables scroll choreography for full-page captures */
   if (new URLSearchParams(location.search).has("flat")) {
@@ -115,60 +132,109 @@
       '<span class="eyebrow eyebrow--ivory-dim">A useful first contact</span>',
       '<h2 id="conversion-panel-title">Start with the details already on your paperwork.</h2>',
       '<p>Calling is the fastest first step. If calling is not convenient, share these basic facts so Avodah can identify the matter and the deadline.</p>',
-      '<button class="btn btn--ivory js-preview-call" type="button"><span class="btn__label">' + TRAFFIC_PHONE_DISPLAY + '</span><span class="btn__chip" aria-hidden="true">&#8594;</span></button>',
+      '<a class="btn btn--ivory js-call-link" href="tel:' + TRAFFIC_PHONE_HREF + '"><span class="btn__label">' + TRAFFIC_PHONE_DISPLAY + '</span><span class="btn__chip" aria-hidden="true">&#8594;</span></a>',
       '</div>',
-      '<form class="conversion-panel__form" data-preview-form>',
-      '<p class="preview-form-notice" tabindex="-1">Preview only. This form does not transmit or store information.</p>',
-      '<label>Full name<input type="text" autocomplete="name" /></label>',
-      '<label>Phone number<input type="tel" autocomplete="tel" /></label>',
-      '<label>Charge or citation<input type="text" /></label>',
-      '<div class="conversion-panel__row"><label>Court or locality<input type="text" /></label><label>Court date<input type="text" inputmode="numeric" placeholder="MM / DD / YYYY" /></label></div>',
-      '<label class="conversion-panel__consent"><input type="checkbox" /><span>Submitting this form does not create an attorney-client relationship. Do not send confidential details until Avodah confirms it can speak with you.</span></label>',
+      '<form class="conversion-panel__form" data-preview-form data-intake-form>',
+      '<p class="preview-form-notice" tabindex="-1">Checking secure inquiry routing...</p>',
+      '<div class="form-trap" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>',
+      '<label>Full name<input type="text" name="name" autocomplete="name" maxlength="120" required /></label>',
+      '<label>Phone number<input type="tel" name="phone" autocomplete="tel" maxlength="50" required /></label>',
+      '<label>Charge or citation<input type="text" name="charge" maxlength="180" required /></label>',
+      '<div class="conversion-panel__row"><label>Court or locality<input type="text" name="court" maxlength="160" required /></label><label>Court date<input type="text" name="courtDate" maxlength="80" inputmode="numeric" placeholder="MM / DD / YYYY" /></label></div>',
+      '<label class="conversion-panel__consent"><input type="checkbox" name="consent" required /><span>Submitting this form does not create an attorney-client relationship. Do not send confidential details until Avodah confirms it can speak with you.</span></label>',
       '<button class="btn btn--aubergine" type="submit"><span class="btn__label">Send the first details</span><span class="btn__chip" aria-hidden="true">&#8594;</span></button>',
       '</form>'
     ].join("");
     conversionMain.insertAdjacentElement("afterend", conversionPanel);
   }
 
-  /* ---------- preview-only forms ---------- */
+  /* ---------- inquiry forms ---------- */
 
-  document.querySelectorAll("form[data-preview-form]").forEach(function (form) {
+  var intakeForms = document.querySelectorAll("form[data-intake-form]");
+  var intakeEnabled = false;
+  var staticPreviewHost = location.hostname === "swim-lang.github.io" || location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:";
+
+  function setFormNotice(form, message, isError) {
+    var notice = form.querySelector(".preview-form-notice");
+    if (!notice) return;
+    notice.textContent = message;
+    notice.setAttribute("role", isError ? "alert" : "status");
+    notice.classList.toggle("is-error", Boolean(isError));
+    notice.focus();
+  }
+
+  function formPayload(form) {
+    var data = new FormData(form);
+    var payload = {};
+    data.forEach(function (value, key) { payload[key] = value; });
+    payload.consent = data.has("consent");
+    payload.page = location.pathname;
+    return payload;
+  }
+
+  if (intakeForms.length && !staticPreviewHost) {
+    fetch("/api/intake", { method: "GET", headers: { Accept: "application/json" } })
+      .then(function (response) { return response.ok ? response.json() : { enabled: false }; })
+      .then(function (result) {
+        intakeEnabled = result.enabled === true;
+        intakeForms.forEach(function (form) {
+          var notice = form.querySelector(".preview-form-notice");
+          if (notice) notice.textContent = intakeEnabled ? "Your information will be sent to Avodah's intake team. Please do not include confidential documents or a detailed narrative." : "Online inquiries are temporarily unavailable. Please call Avodah Traffic.";
+        });
+      })
+      .catch(function () { intakeEnabled = false; });
+  }
+
+  intakeForms.forEach(function (form) {
     form.addEventListener("submit", function (event) {
       event.preventDefault();
-      var notice = form.querySelector(".preview-form-notice");
-      if (notice) {
-        notice.textContent = "Preview only. No information was sent.";
-        notice.setAttribute("role", "status");
-        notice.focus();
-      }
+      if (!intakeEnabled) return setFormNotice(form, staticPreviewHost ? "Preview only. No information was sent." : "Online inquiries are temporarily unavailable. Please call Avodah Traffic.", true);
+      var payload = formPayload(form);
+      var submit = form.querySelector('button[type="submit"]');
+      if (submit) submit.disabled = true;
+      setFormNotice(form, "Sending your inquiry...", false);
+      fetch("/api/intake", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(payload) })
+        .then(function (response) { return response.json().catch(function () { return { ok: false, message: "Your inquiry could not be sent. Please call Avodah Traffic directly." }; }).then(function (result) { if (!response.ok || result.ok !== true) throw new Error(result.message || "Your inquiry could not be sent. Please call Avodah Traffic directly."); return result; }); })
+        .then(function () { form.reset(); trackEvent("generate_lead", { lead_type: "traffic_inquiry" }); setFormNotice(form, "Thank you. Your inquiry was sent to Avodah's intake team.", false); })
+        .catch(function (error) { setFormNotice(form, error.message || "Your inquiry could not be sent. Please call Avodah Traffic directly.", true); })
+        .finally(function () { if (submit) submit.disabled = false; });
     });
   });
 
-  /* ---------- preview-only phone actions ---------- */
+  /* ---------- phone actions ---------- */
 
   var headerCall = document.querySelector(".site-header__cta");
   if (headerCall) {
-    if (headerCall.tagName === "A") headerCall.removeAttribute("href");
-    headerCall.classList.add("js-preview-call");
-    headerCall.setAttribute("aria-disabled", "true");
-    headerCall.setAttribute("title", "Preview only. CallRail routing is not configured yet.");
+    if (headerCall.tagName !== "A") {
+      var headerLink = document.createElement("a");
+      Array.from(headerCall.attributes).forEach(function (attribute) { if (attribute.name !== "type") headerLink.setAttribute(attribute.name, attribute.value); });
+      headerLink.innerHTML = headerCall.innerHTML;
+      headerCall.replaceWith(headerLink);
+      headerCall = headerLink;
+    }
+    headerCall.href = "tel:" + TRAFFIC_PHONE_HREF;
+    headerCall.classList.remove("js-preview-call");
+    headerCall.classList.add("js-call-link");
+    headerCall.removeAttribute("aria-disabled");
+    headerCall.removeAttribute("title");
     var headerLabel = headerCall.querySelector(".btn__label");
     if (headerLabel) headerLabel.textContent = TRAFFIC_PHONE_DISPLAY;
   }
 
   var utilityLink = document.querySelector(".utility-line a");
   if (utilityLink) {
-    utilityLink.removeAttribute("href");
-    utilityLink.classList.add("js-preview-call");
-    utilityLink.setAttribute("aria-disabled", "true");
-    utilityLink.setAttribute("title", "Preview only. CallRail routing is not configured yet.");
+    utilityLink.href = "tel:" + TRAFFIC_PHONE_HREF;
+    utilityLink.classList.remove("js-preview-call");
+    utilityLink.classList.add("js-call-link");
+    utilityLink.removeAttribute("aria-disabled");
+    utilityLink.removeAttribute("title");
     utilityLink.textContent = TRAFFIC_PHONE_DISPLAY;
   }
 
-  var mobileCall = document.createElement("button");
-  mobileCall.className = "mobile-call-bar js-preview-call";
-  mobileCall.type = "button";
-  mobileCall.innerHTML = "<span>" + TRAFFIC_PHONE_DISPLAY + "</span><small>Avodah Traffic · preview routing pending</small>";
+  var mobileCall = document.createElement("a");
+  mobileCall.className = "mobile-call-bar js-call-link";
+  mobileCall.href = "tel:" + TRAFFIC_PHONE_HREF;
+  mobileCall.innerHTML = "<span>" + TRAFFIC_PHONE_DISPLAY + "</span><small>Call Avodah Traffic</small>";
   document.body.appendChild(mobileCall);
 
   if (document.querySelector(".article-page") && document.querySelector(".primary-nav") && !document.querySelector(".menu-btn")) {
@@ -194,19 +260,20 @@
     if (menuControl) headerActions.appendChild(menuControl);
   }
 
-  document.querySelectorAll(".js-preview-call").forEach(function (control) {
-    control.addEventListener("click", function (event) {
-      event.preventDefault();
-      var notice = document.querySelector(".preview-call-notice");
-      if (notice) {
-        notice.textContent = "Preview only. The number is shown for review, but CallRail routing is not configured yet.";
-        notice.classList.add("is-active");
-        notice.setAttribute("role", "status");
-        notice.focus();
-      } else {
-        mobileCall.querySelector("small").textContent = "Preview routing pending";
-      }
-    });
+  document.querySelectorAll(".js-preview-call, .js-call-link").forEach(function (control) {
+    if (control.tagName !== "A") {
+      var callLink = document.createElement("a");
+      Array.from(control.attributes).forEach(function (attribute) { if (attribute.name !== "type") callLink.setAttribute(attribute.name, attribute.value); });
+      callLink.innerHTML = control.innerHTML;
+      control.replaceWith(callLink);
+      control = callLink;
+    }
+    if (control.classList.contains("js-preview-call")) {
+      control.classList.remove("js-preview-call");
+      control.classList.add("js-call-link");
+    }
+    control.href = "tel:" + TRAFFIC_PHONE_HREF;
+    control.addEventListener("click", function () { trackEvent("click_to_call", { site_section: pageName }); });
   });
 
   /* ---------- overlay menu (tablet / mobile) ---------- */

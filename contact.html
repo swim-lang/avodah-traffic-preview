@@ -4,20 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="assets/crest-eggplant.svg" type="image/svg+xml" />
-  <meta name="robots" content="noindex, nofollow" />
   <title>Contact Avodah Traffic | Request a Virginia Traffic Case Review</title>
+  <link rel="canonical" href="https://avodahtraffic.com/contact" />
+  <meta property="og:url" content="https://avodahtraffic.com/contact" />
   <meta name="description" content="Share the charge, court, court date and license state to begin a conflict-aware review with Avodah Traffic." />
   <meta property="og:title" content="Contact Avodah Traffic | Request a Virginia Traffic Case Review" />
   <meta property="og:description" content="Share the charge, court, court date and license state to begin a conflict-aware review with Avodah Traffic." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Avodah Traffic" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:image" content="https://swim-lang.github.io/avodah-traffic-preview/assets/traffic-hero-patrol-v1.jpg" />
+  <meta property="og:image" content="https://avodahtraffic.com/assets/traffic-hero-patrol-v1.jpg" />
   <meta property="og:image:alt" content="Avodah Traffic" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Contact Avodah Traffic | Request a Virginia Traffic Case Review" />
   <meta name="twitter:description" content="Share the charge, court, court date and license state to begin a conflict-aware review with Avodah Traffic." />
-  <meta name="twitter:image" content="https://swim-lang.github.io/avodah-traffic-preview/assets/traffic-hero-patrol-v1.jpg" />
+  <meta name="twitter:image" content="https://avodahtraffic.com/assets/traffic-hero-patrol-v1.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&display=swap" rel="stylesheet" />
@@ -58,51 +59,52 @@
 
     <!-- ============ FORM + RAIL ============ -->
     <section class="contact-wrap">
-      <form class="intake" id="case-review" data-preview-form>
+      <form class="intake" id="case-review" data-preview-form data-intake-form>
         <span class="eyebrow eyebrow--signal reveal">Request a Case Review</span>
-        <p class="preview-form-notice reveal" tabindex="-1">Preview only. This form does not transmit or store information.</p>
+        <p class="preview-form-notice reveal" tabindex="-1">Checking secure inquiry routing...</p>
+        <div class="form-trap" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
         <div class="intake__row reveal" style="--d: .08s">
           <div class="field">
             <label for="f-name">Full name</label>
-            <input id="f-name" name="name" type="text" autocomplete="name" />
+            <input id="f-name" name="name" type="text" autocomplete="name" maxlength="120" required />
           </div>
           <div class="field">
             <label for="f-email">Email</label>
-            <input id="f-email" name="email" type="email" autocomplete="email" />
+            <input id="f-email" name="email" type="email" autocomplete="email" maxlength="160" />
           </div>
         </div>
         <div class="intake__row reveal" style="--d: .14s">
           <div class="field">
             <label for="f-phone">Mobile phone</label>
-            <input id="f-phone" name="phone" type="tel" autocomplete="tel" />
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" maxlength="50" />
           </div>
           <div class="field">
             <label for="f-contact">Preferred contact method</label>
-            <input id="f-contact" name="contact-method" type="text" />
+            <input id="f-contact" name="contactMethod" type="text" maxlength="80" />
           </div>
         </div>
         <div class="field reveal" style="--d: .2s">
           <label for="f-charge">Charge as written on the summons or paperwork</label>
-          <input id="f-charge" name="charge" type="text" />
+          <input id="f-charge" name="charge" type="text" maxlength="180" required />
         </div>
         <div class="intake__row reveal" style="--d: .26s">
           <div class="field">
             <label for="f-code">Code section, if shown</label>
-            <input id="f-code" name="code-section" type="text" />
+            <input id="f-code" name="codeSection" type="text" maxlength="80" />
           </div>
           <div class="field">
             <label for="f-court">Court or locality</label>
-            <input id="f-court" name="court" type="text" />
+            <input id="f-court" name="court" type="text" maxlength="160" required />
           </div>
         </div>
         <div class="intake__row reveal" style="--d: .32s">
           <div class="field">
             <label for="f-date">Court date</label>
-            <input id="f-date" name="court-date" type="text" placeholder="" />
+            <input id="f-date" name="courtDate" type="text" maxlength="80" placeholder="MM / DD / YYYY" />
           </div>
           <div class="field">
             <label for="f-license">Driver's-license state</label>
-            <input id="f-license" name="license-state" type="text" />
+            <input id="f-license" name="licenseState" type="text" maxlength="80" />
           </div>
         </div>
         <div class="intake__row reveal" style="--d: .38s">

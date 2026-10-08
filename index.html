@@ -4,20 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="assets/crest-eggplant.svg" type="image/svg+xml" />
-  <meta name="robots" content="noindex, nofollow" />
   <title>Virginia Traffic and Criminal Defense Lawyer | Avodah Traffic</title>
+  <link rel="canonical" href="https://avodahtraffic.com/" />
+  <meta property="og:url" content="https://avodahtraffic.com/" />
   <meta name="description" content="Virginia counsel for reckless driving, DUI/DWI, traffic offenses and selected criminal matters. Start with your charge, court and court date." />
   <meta property="og:title" content="Virginia Traffic and Criminal Defense Lawyer | Avodah Traffic" />
   <meta property="og:description" content="Virginia counsel for reckless driving, DUI/DWI, traffic offenses and selected criminal matters. Start with your charge, court and court date." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Avodah Traffic" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:image" content="https://swim-lang.github.io/avodah-traffic-preview/assets/traffic-hero-patrol-v1.jpg" />
+  <meta property="og:image" content="https://avodahtraffic.com/assets/traffic-hero-patrol-v1.jpg" />
   <meta property="og:image:alt" content="Avodah Traffic" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Virginia Traffic and Criminal Defense Lawyer | Avodah Traffic" />
   <meta name="twitter:description" content="Virginia counsel for reckless driving, DUI/DWI, traffic offenses and selected criminal matters. Start with your charge, court and court date." />
-  <meta name="twitter:image" content="https://swim-lang.github.io/avodah-traffic-preview/assets/traffic-hero-patrol-v1.jpg" />
+  <meta name="twitter:image" content="https://avodahtraffic.com/assets/traffic-hero-patrol-v1.jpg" />
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"LegalService","name":"Avodah Traffic","url":"https://avodahtraffic.com/","telephone":"+1-804-405-2129","areaServed":{"@type":"State","name":"Virginia"},"parentOrganization":{"@type":"LegalService","name":"Avodah Legal","url":"https://www.avodahlegal.com/"}}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- Jost stands in for Futura PT Book until the Adobe Fonts kit is added -->
@@ -92,7 +96,7 @@
           </a>
         </div>
       </div>
-      <p class="preview-call-notice reveal-load" style="--d: .9s" tabindex="-1">Preview only. The number is shown for review, but CallRail routing is not configured yet.</p>
+      <p class="preview-call-notice reveal-load" style="--d: .9s" tabindex="-1">Call Avodah Traffic or use the short case-review form below.</p>
     </section>
 
     <!-- ============ MARK EARLEY — IMMEDIATE PROOF ============ -->
@@ -143,19 +147,20 @@
         <h2 class="reveal" style="--d: .12s">If calling is not convenient, send the four facts from your paperwork.</h2>
         <p class="reveal" style="--d: .24s">This short first step helps Avodah identify the matter and the deadline. Additional details can wait until the firm confirms it can speak with you.</p>
       </div>
-      <form class="quick-review__form reveal" style="--d: .18s" data-preview-form>
-        <p class="preview-form-notice" tabindex="-1">Preview only. This form does not transmit or store information.</p>
+      <form class="quick-review__form reveal" style="--d: .18s" data-preview-form data-intake-form>
+        <p class="preview-form-notice" tabindex="-1">Checking secure inquiry routing...</p>
+        <div class="form-trap" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
         <div class="quick-review__row">
-          <label>Full name<input type="text" autocomplete="name" /></label>
-          <label>Phone number<input type="tel" autocomplete="tel" /></label>
+          <label>Full name<input type="text" name="name" autocomplete="name" maxlength="120" required /></label>
+          <label>Phone number<input type="tel" name="phone" autocomplete="tel" maxlength="50" required /></label>
         </div>
-        <label>Charge as written<input type="text" /></label>
+        <label>Charge as written<input type="text" name="charge" maxlength="180" required /></label>
         <div class="quick-review__row">
-          <label>Court or locality<input type="text" /></label>
-          <label>Court date<input type="text" inputmode="numeric" placeholder="MM / DD / YYYY" /></label>
+          <label>Court or locality<input type="text" name="court" maxlength="160" required /></label>
+          <label>Court date<input type="text" name="courtDate" maxlength="80" inputmode="numeric" placeholder="MM / DD / YYYY" /></label>
         </div>
-        <label>Driver's-license state<input type="text" /></label>
-        <label class="quick-review__consent"><input type="checkbox" /><span>Submitting this form does not create an attorney-client relationship. Do not send confidential information until Avodah confirms it can speak with you.</span></label>
+        <label>Driver's-license state<input type="text" name="licenseState" maxlength="80" /></label>
+        <label class="quick-review__consent"><input type="checkbox" name="consent" required /><span>Submitting this form does not create an attorney-client relationship. Do not send confidential information until Avodah confirms it can speak with you.</span></label>
         <button class="btn btn--aubergine" type="submit"><span class="btn__label">Submit First Step</span><span class="btn__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></button>
       </form>
     </section>

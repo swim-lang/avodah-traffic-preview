@@ -1,0 +1,12 @@
+{
+  "name": "avodah-traffic-preview",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "lint": "node --check js/site.js && node --check api/intake.js && node --check tests/intake.test.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

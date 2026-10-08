@@ -1,14 +1,36 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "functions": {
+    "api/intake.js": {
+      "maxDuration": 10
+    }
+  },
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/insights",
       "headers": [
         {
           "key": "X-Robots-Tag",
           "value": "noindex, nofollow"
         }
       ]
+    },
+    {
+      "source": "/(after-virginia-dui-dwi-charge|virginia-reckless-driving-vs-speeding-ticket|out-of-state-driver-virginia-ticket|viewer)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/what-happens-next",
+      "destination": "/serious-traffic-offenses",
+      "permanent": true
     }
   ]
 }
